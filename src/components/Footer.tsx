@@ -16,7 +16,12 @@ const Footer = () => {
               Maroc
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-amber-500">
+              <a
+                href="https://www.facebook.com/bendaoud.bijouterie"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-amber-500"
+              >
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -30,7 +35,12 @@ const Footer = () => {
                   />
                 </svg>
               </a>
-              <a href="#" className="text-gray-400 hover:text-amber-500">
+              <a
+                href="https://www.instagram.com/bendaoud_officiel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-amber-500"
+              >
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -198,7 +208,7 @@ const Footer = () => {
         </div>
         <Separator className="my-8 bg-gray-800" />
         <div className="text-center text-gray-500 text-sm">
-          <p>© 2023 Bijouterie Ben Daoud. Tous droits réservés.</p>
+          <p>© 2025 Bijouterie Ben Daoud. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

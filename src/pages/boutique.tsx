@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Filter, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -347,13 +347,14 @@ const ProductCard = ({
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <Button
-                variant="secondary"
-                className="bg-white hover:bg-primary hover:text-white transition-colors duration-300"
-                onClick={() => (window.location.href = `/product/${id}`)}
-              >
-                Aperçu rapide
-              </Button>
+              <Link to={`/product/${id}`} className="block w-full">
+                <Button
+                  variant="secondary"
+                  className="w-full bg-white hover:bg-primary hover:text-white transition-colors duration-300"
+                >
+                  Aperçu rapide
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -364,13 +365,15 @@ const ProductCard = ({
             <div className="text-primary font-semibold">
               {price.toLocaleString()} MAD
             </div>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300"
-            >
-              Ajouter
-            </Button>
+            <Link to="/panier">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300"
+              >
+                Ajouter
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

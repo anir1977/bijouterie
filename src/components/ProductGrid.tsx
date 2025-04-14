@@ -132,6 +132,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
               id={product.id}
               name={product.name}
               price={product.price}
+              imageUrl={product.image}
               image={product.image}
               category={showCategory ? product.category : undefined}
             />

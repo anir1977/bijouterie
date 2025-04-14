@@ -74,10 +74,8 @@ const CheckoutPage = () => {
       paymentMethod: "Paiement à la livraison",
     });
 
-    // For now, we'll just show an alert
-    alert(
-      "Merci pour votre commande ! Vous serez contacté bientôt pour la livraison.",
-    );
+    // Redirect to thank you page
+    window.location.href = "/merci";
   };
 
   return (

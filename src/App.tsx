@@ -10,6 +10,11 @@ const ContactPage = lazy(() => import("./pages/contact"));
 const LivraisonPage = lazy(() => import("./pages/livraison"));
 const ProductPage = lazy(() => import("./pages/product/[id]"));
 const CheckoutPage = lazy(() => import("./pages/checkout"));
+const AdminPage = lazy(() => import("./pages/admin"));
+const DashboardPage = lazy(() => import("./pages/Dashboard"));
+const MonComptePage = lazy(() => import("./pages/mon-compte"));
+const MerciPage = lazy(() => import("./pages/merci"));
+const PanierPage = lazy(() => import("./pages/panier"));
 
 function App() {
   return (
@@ -21,6 +26,9 @@ function App() {
       }
     >
       <>
+        {/* Tempo routes for storyboards */}
+        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/boutique" element={<BoutiquePage />} />
@@ -29,13 +37,17 @@ function App() {
           <Route path="/livraison" element={<LivraisonPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/mon-compte" element={<MonComptePage />} />
+          <Route path="/merci" element={<MerciPage />} />
+          <Route path="/panier" element={<PanierPage />} />
 
           {/* Add this before the catchall route */}
           {import.meta.env.VITE_TEMPO === "true" && (
             <Route path="/tempobook/*" />
           )}
         </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
       </>
     </Suspense>
   );

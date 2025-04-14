@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ArrowLeft, Heart, Share2, ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductGrid from "@/components/ProductGrid";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Footer from "@/components/Footer";
 
 interface ProductImage {
   id: number;
@@ -114,20 +116,18 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen flex flex-col">
       {/* Back button */}
       <div className="container py-4">
-        <Button
-          variant="ghost"
-          className="flex items-center gap-2"
-          onClick={() => window.history.back()}
-        >
-          <ArrowLeft size={16} />
-          Retour
-        </Button>
+        <Link to="/boutique">
+          <Button variant="ghost" className="flex items-center gap-2">
+            <ArrowLeft size={16} />
+            Retour
+          </Button>
+        </Link>
       </div>
 
-      <div className="container pb-16">
+      <div className="container pb-16 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Product Images */}
           <div className="space-y-4">
@@ -218,15 +218,57 @@ const ProductPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="flex-1 bg-primary hover:bg-primary/90">
+              <Button
+                className="w-full bg-primary hover:bg-primary/90 flex-1"
+                onClick={() => {
+                  const savedCart = localStorage.getItem("cartItems");
+                  const currentCart = savedCart ? JSON.parse(savedCart) : [];
+
+                  // Check if item already exists in cart
+                  const existingItemIndex = currentCart.findIndex(
+                    (item: any) => item.id === product.id,
+                  );
+
+                  if (existingItemIndex >= 0) {
+                    // Update quantity if item exists
+                    currentCart[existingItemIndex].quantity += quantity;
+                  } else {
+                    // Add new item to cart
+                    currentCart.push({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      quantity: quantity,
+                      imageUrl: product.images[0].url,
+                    });
+                  }
+
+                  localStorage.setItem(
+                    "cartItems",
+                    JSON.stringify(currentCart),
+                  );
+                  alert("Produit ajouté au panier");
+                }}
+              >
                 <ShoppingCart className="mr-2 h-4 w-4" />
                 Ajouter au panier
               </Button>
-              <Button variant="outline" className="flex-1">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={() => alert("Produit ajouté aux favoris!")}
+              >
                 <Heart className="mr-2 h-4 w-4" />
                 Ajouter aux favoris
               </Button>
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert("Lien copié! Vous pouvez maintenant le partager.");
+                }}
+              >
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>
@@ -355,7 +397,8 @@ const ProductPage = () => {
         </div>
       </div>
 
-      {/* WhatsApp Button */}
+      {/* Footer and WhatsApp Button */}
+      <Footer />
       <WhatsAppButton />
     </div>
   );

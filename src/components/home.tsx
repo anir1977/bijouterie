@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronRight, Star } from "lucide-react";
 import { Button } from "./ui/button";
@@ -13,46 +14,52 @@ const HomePage = () => {
   // Mock data for featured categories
   const featuredCategories = [
     {
-      id: 1,
+      id: "1", // Changed to string to match Product interface
       name: "Colliers",
       image:
         "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
-      price: "3,500 MAD",
+      price: 3500, // Changed to number to match Product interface
+      category: "Colliers",
     },
     {
-      id: 2,
+      id: "2", // Changed to string to match Product interface
       name: "Bracelets",
       image:
         "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
-      price: "2,800 MAD",
+      price: 2800, // Changed to number to match Product interface
+      category: "Bracelets",
     },
     {
-      id: 3,
+      id: "3", // Changed to string to match Product interface
       name: "Bagues",
       image:
         "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80",
-      price: "1,950 MAD",
+      price: 1950, // Changed to number to match Product interface
+      category: "Bagues",
     },
     {
-      id: 4,
+      id: "4", // Changed to string to match Product interface
       name: "Boucles d'oreilles",
       image:
         "https://images.unsplash.com/photo-1629224316810-9d8805b95e76?w=800&q=80",
-      price: "1,750 MAD",
+      price: 1750, // Changed to number to match Product interface
+      category: "Boucles d'oreilles",
     },
     {
-      id: 5,
+      id: "5", // Changed to string to match Product interface
       name: "Parures & Ensembles",
       image:
         "https://images.unsplash.com/photo-1620656798932-902cbe7d3f1e?w=800&q=80",
-      price: "5,900 MAD",
+      price: 5900, // Changed to number to match Product interface
+      category: "Parures & Ensembles",
     },
     {
-      id: 6,
+      id: "6", // Changed to string to match Product interface
       name: "Montres",
       image:
         "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
-      price: "4,200 MAD",
+      price: 4200, // Changed to number to match Product interface
+      category: "Montres",
     },
   ];
 
@@ -180,12 +187,72 @@ const HomePage = () => {
                       {offer.discountedPrice}
                     </span>
                   </div>
-                  <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white">
+                  <Button
+                    className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+                    onClick={() => {
+                      const savedCart = localStorage.getItem("cartItems");
+                      const currentCart = savedCart
+                        ? JSON.parse(savedCart)
+                        : [];
+
+                      // Add special offer to cart
+                      const newItem = {
+                        id: `offer-${offer.id}`,
+                        name: offer.name,
+                        price: parseInt(
+                          offer.discountedPrice.replace(/[^0-9]/g, ""),
+                        ),
+                        quantity: 1,
+                        imageUrl: offer.image,
+                      };
+
+                      // Check if item already exists
+                      const existingItemIndex = currentCart.findIndex(
+                        (item: any) => item.id === newItem.id,
+                      );
+
+                      if (existingItemIndex >= 0) {
+                        currentCart[existingItemIndex].quantity += 1;
+                      } else {
+                        currentCart.push(newItem);
+                      }
+
+                      localStorage.setItem(
+                        "cartItems",
+                        JSON.stringify(currentCart),
+                      );
+                      alert("Produit ajouté au panier");
+                    }}
+                  >
                     Ajouter au Panier
                   </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Banner */}
+      <section className="py-8 bg-amber-50">
+        <div className="container mx-auto px-4">
+          <div className="bg-white rounded-lg shadow-md p-6 border border-amber-200">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-center md:text-left">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Restez informé de nos nouveautés
+                </h3>
+                <p className="text-gray-600">
+                  Inscrivez-vous à notre newsletter pour recevoir nos offres
+                  exclusives
+                </p>
+              </div>
+              <Link to="/mon-compte">
+                <Button className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 whitespace-nowrap">
+                  S'abonner maintenant
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

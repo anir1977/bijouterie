@@ -20,9 +20,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/">
-            <h1 className="text-2xl font-bold text-amber-700">
-              Bijouterie Ben Daoud
-            </h1>
+            <div className="flex items-center">
+              <span className="text-amber-600 font-bold text-3xl mr-2">BD</span>
+              <h1 className="text-2xl font-bold text-amber-700">
+                Bijouterie Ben Daoud
+              </h1>
+            </div>
           </Link>
         </div>
 
@@ -64,12 +67,14 @@ const Navbar = () => {
           <Link to="/panier" className="text-gray-800 hover:text-amber-600">
             <ShoppingBag className="h-6 w-6" />
           </Link>
-          <Button
-            variant="outline"
-            className="hidden md:flex border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white"
-          >
-            Mon Compte
-          </Button>
+          <Link to="/mon-compte">
+            <Button
+              variant="outline"
+              className="hidden md:flex border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white"
+            >
+              Newsletter
+            </Button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -124,12 +129,14 @@ const Navbar = () => {
             >
               Livraison
             </Link>
-            <Button
-              variant="outline"
-              className="w-full border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white mt-2"
-            >
-              Mon Compte
-            </Button>
+            <Link to="/mon-compte" className="w-full">
+              <Button
+                variant="outline"
+                className="w-full border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white mt-2"
+              >
+                Newsletter
+              </Button>
+            </Link>
           </div>
         </div>
       )}
